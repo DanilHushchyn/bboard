@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% load bootstrap4 %}
+{% block title %}Изменение объявления{% endblock %}
+{% block content %}
+    <h2>Правка объявления под названием {{ bb.title }}</h2>
+    <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+
+
+    <h2>Правка галереи</h2>
+
+    {% bootstrap_formset formset layout='horizontal' %}
+
+    {% buttons submit='Сохранить' %}{% endbuttons %}
+    </form>
+{% endblock %}
