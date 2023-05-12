@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'main.apps.MainConfig',
     'django.contrib.staticfiles',
     'django_cleanup',
     'django_bootstrap5',
+    'main.apps.MainConfig',
+
     'easy_thumbnails',
     'captcha',
     'rest_framework',
@@ -97,11 +98,11 @@ WSGI_APPLICATION = 'bboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ["PGDATABASE"],
-        'USER': os.environ["PGUSER"],
-        'PASSWORD': os.environ["PGPASSWORD"],
-        'HOST': os.environ["PGHOST"],
-        'PORT': os.environ["PGPORT"],
+        'NAME': 'bboard',
+        'USER': 'postgres',
+        'PASSWORD': 'buzaho4114',
+        'HOST': '127.0.0.1',
+        'PORT': 5432
     }
 }
 
@@ -141,8 +142,9 @@ MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = []
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
