@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure--z9&8%(ndv14@t0-q**k08!-dm+ctc##d%y+y1es!ed%$tmat=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -38,12 +38,12 @@ DEFAULT_TO_EMAIL = 'Your email'
 # Application definition
 
 INSTALLED_APPS = [
-    'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'main.apps.MainConfig',
     'django.contrib.staticfiles',
     'django_cleanup',
     'django_bootstrap5',
@@ -63,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'A/api/.*$'
