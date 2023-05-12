@@ -6,11 +6,9 @@ from main.forms import SubRubricForm
 from main.models import SubRubric, AdvUser, SuperRubric, AdditionalImage, Bb, Comment
 from main.utilities import send_activation_notification
 
-
 # Register your models here.
 from django.contrib import admin
 import datetime
-
 
 
 def send_activation_notifications(modeladmin, request, queryset):

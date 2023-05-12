@@ -1,7 +1,10 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.core import validators
 from django.db import models
-from django.dispatch import Signal
+from django.db.models.signals import post_save
+from django.dispatch import Signal, receiver
 
 from main.utilities import send_activation_notification, get_timestamp_path
 
@@ -111,11 +114,12 @@ class AdditionalImage(models.Model):
     bb = models.ForeignKey(Bb, on_delete=models.CASCADE,
                            verbose_name='Объявление')
     image = models.ImageField(upload_to=get_timestamp_path,
-                              verbose_name='Изображение',help_text='Подгружать надо аккуратно')
+                              verbose_name='Изображение', help_text='Подгружать надо аккуратно')
 
     class Meta:
         verbose_name_plural = 'Дополнительные иллюстрации'
         verbose_name = 'Дополнительная иллюстрация'
+
 
 class Comment(models.Model):
     bb = models.ForeignKey(Bb, on_delete=models.CASCADE, verbose_name='Объявление')
@@ -133,8 +137,29 @@ class Comment(models.Model):
 user_registered = Signal()
 
 
+class Note(models.Model):
+    '''
+     Пример создания маодели которая несёт полиморфную связь(каждая запись этой модели
+     может связаться с записью любой другой мадели)
+     К сожалению, поле полиморфной связи нельзя использовать в условиях фильтра
+     ции(но остальные поля этой поддерживают фильтрацию).
+    '''
+    content = models.TextField()
+    contenttype = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey(ct_field='contenttype', fk_field='object_id')
+
+    class Meta:
+        pass
+
+
 def user_registered_dispatcher(sender, **kwargs):
     send_activation_notification(kwargs['instance'])
 
 
 user_registered.connect(user_registered_dispatcher)
+
+
+@receiver(post_save, sender=Comment)
+def dispatcher_test(instance, **kwargs):
+    pass
