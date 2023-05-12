@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--z9&8%(ndv14@t0-q**k08!-dm+ctc##d%y+y1es!ed%$tmat='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -94,8 +94,12 @@ WSGI_APPLICATION = 'bboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'bboard.data',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bboard',
+        'USER': 'postgres',
+        'PASSWORD': 'buzaho4114',
+        'HOST': '127.0.0.1',
+        'PORT': 5432
     }
 }
 
